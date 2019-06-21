@@ -154,6 +154,23 @@ reliability(fit)
 # omega3     0.5836462       0.7058524    0.7961523  0.7136993  0.6249287 0.7583164
 
 
+# -- step 2: ave --
+
+# -- step 3: discrimant validity --
+
+# -- step 4: pearson's r-squared --
+
+# -- step 5: predictive validity --
+
+# -- step 6: effect size --
+# https://stats.stackexchange.com/questions/223729/estimating-effect-size-for-mean-difference-cohens-d-in-a-structural-equation
+
+# -- step 7: path coefficients --
+
+# -- step 8: unobserved heterogeneity --
+
+
+
 #summary(fit, standardized=TRUE)
 #semPaths(fit, what="paths", whatLabels="stand", rotation=2)
 
