@@ -132,6 +132,16 @@ notGreatNotTerribleModel <- '
 fit <- sem(notGreatNotTerribleModel, data=Prova19_268)
 reliability(fit)
 
+yetAgain <- '
+  DESEJO_ENVOLV =~ DE_3 + DE_8
+  # FLEXI_COGNITIVA =~ FC_6 + FC_7
+  AUTO_CONTROL =~ AC_3 + AC_6 + AC_7
+  CONTR_EMOC =~ Cem_3 + Cem_4
+  TOL_INCERT =~ TI_3 + TI_5
+
+  TOL_INCERT ~ CONTR_EMOC + DESEJO_ENVOLV + AUTO_CONTROL # + FLEXI_COGNITIVA 
+'
+fit <- sem(yetAgain, data=Prova19_268)
 reliability(fit)
 
 
