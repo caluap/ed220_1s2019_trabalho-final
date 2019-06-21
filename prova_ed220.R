@@ -236,17 +236,6 @@ inspect(origFit, 'r2')
 # -- step 6: effect size --
 # https://stats.stackexchange.com/questions/223729/estimating-effect-size-for-mean-difference-cohens-d-in-a-structural-equation
 # and https://groups.google.com/forum/#!topic/lavaan/8xPLljwz4m4
-summary(origFit, standardized=TRUE)
-
-
-
-# -- step 7: path coefficients --
-
-# -- step 8: unobserved heterogeneity --
-
-
-
-#summary(fit, standardized=TRUE)
-#semPaths(fit, what="paths", whatLabels="stand", rotation=2)
+summary(fit, standardized=TRUE)
 
 
