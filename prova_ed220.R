@@ -21,6 +21,55 @@ reliability(fit)
 
 
 # attempt to maximize AVE:
+
+iterateAVEs <- function(latVar, measuredVars) {
+  biggestAVE <- 0
+  for (i in 2:length(measuredVars)){
+    AVE <- maxAVE(latVar, measuredVars, i)
+    if (AVE > biggestAVE) {
+      biggestAVE <- AVE
+    }
+  }
+  print(biggestAVE)
+}
+
+maxAVE <- function(latVar, measuredVars, n) {
+  library(combinat)
+  
+  combinations <- combn(measuredVars, n, simplify=TRUE)
+  i <- 1
+  s <- ''
+  biggestRel <- 0
+  biggestRelS <- ''
+  
+  for (el in combinations) {
+    if (i == 1) {
+      s <- paste(s, el, sep='')    
+    } else {
+      s <- paste(s, el, sep=' + ')    
+    }
+    
+    i <- i + 1
+    
+    if (i == n+1) {
+      s <- paste(latVar,' =~ ', s, sep='')
+      fit <- sem(s, data=Prova19_268)
+      rel <- reliability(fit)
+      if (rel[5] > biggestRel && rel[5] < 1) {
+        biggestRel <- rel[5]
+        biggestRelS <- s
+        print(s)
+        print(biggestRel)
+      }
+      s <- ''
+      i <- 1
+    }
+  }  
+  return(c(biggestRel, biggestRelS))
+}
+
+
+#####
 best_ave_de <- 'DESEJO_ENVOLV =~ DE_1 + DE_2 + DE_6'
 fit <- sem(best_ave_de, data=Prova19_268)
 reliability(fit)
@@ -44,11 +93,45 @@ best_ave_ti <- 'TOL_INCERT =~ TI_1 + TI_4 + TI_5'
 fit <- sem(best_ave_ti, data=Prova19_268)
 reliability(fit)
 
+
+
+# ----BRUTE FORCE---------
+
+de_elements <- c('DE_1','DE_2','DE_3','DE_4','DE_5','DE_6','DE_7','DE_8')
+iterateAVEs('DESEJO_ENVOLV', de_elements)
+# [1] "0.506420934232238"            "DESEJO_ENVOLV =~ DE_5 + DE_8"
+
+fc_elements <- c('FC_1','FC_2','FC_3','FC_4','FC_5','FC_6','FC_7','FC_8','FC_9','FC_10','FC_11')
+iterateAVEs('FLEXI_COGNITIVA', fc_elements)
+# [1] "0.828123912360467"                     "FLEXI_COGNITIVA =~ FC_2 + FC_5 + FC_9"
+
+ac_elements <- c('AC_1','AC_2','AC_3','AC_4','AC_5','AC_6','AC_7','AC_8')
+iterateAVEs('AUTO_CONTROL', ac_elements)
+# [1] "0.835481983117922"                  "AUTO_CONTROL =~ AC_4 + AC_7 + AC_8"
+
+ce_elements <- c('Cem_1','Cem_2','Cem_3','Cem_4')
+iterateAVEs('CONTR_EMOC', ce_elements)
+# [1] "0.533768166778273"           "CONTR_EMOC =~ Cem_3 + Cem_4"
+
+ti_elements <- c('TI_1','TI_2','TI_3','TI_4','TI_5','TI_6','TI_7')
+iterateAVEs('TOL_INCERT', ti_elements)
+# [1] "0.456619832412627"                "TOL_INCERT =~ TI_2 + TI_3 + TI_5"
+
+# ------------------------
+
 # not great, not terrible
 
-rec <- '  TOL_INCERT ~ CONTR_EMOC + DESEJO_ENVOLV + FLEXI_COGNITIVA + AUTO_CONTROL'
-best_ave_model <- paste(best_ave_de, best_ave_fg, best_ave_ac, best_ave_ce, best_ave_ti, rec, sep='\n')
-fit <- sem(best_ave_model, data=Prova19_268)
+notGreatNotTerribleModel <- '
+  DESEJO_ENVOLV =~ DE_5 + DE_8
+  FLEXI_COGNITIVA =~ FC_2 + FC_5 + FC_9
+  AUTO_CONTROL =~ AC_4 + AC_7 + AC_8
+  CONTR_EMOC =~ Cem_3 + Cem_4
+  TOL_INCERT =~ TI_2 + TI_3 + TI_5
+  TOL_INCERT ~ CONTR_EMOC + DESEJO_ENVOLV + FLEXI_COGNITIVA + AUTO_CONTROL
+'
+fit <- sem(notGreatNotTerribleModel, data=Prova19_268)
+reliability(fit)
+
 reliability(fit)
 
 
