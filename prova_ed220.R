@@ -227,6 +227,10 @@ anova(corFit, origFit)
 # chidist  61.758 , p<0.001
 
 # -- step 4: pearson's r-squared --
+inspect(origFit, 'r2')
+# DE_3  DE_8  AC_3  AC_6  AC_7 Cem_3 Cem_4  TI_3  TI_5 
+# 0.205 0.769 0.177 0.793 0.564 0.605 0.472 0.871 0.052 
+
 
 # -- step 5: predictive validity --
 
