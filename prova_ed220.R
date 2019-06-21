@@ -134,7 +134,7 @@ reliability(fit)
 
 yetAgain <- '
   DESEJO_ENVOLV =~ DE_3 + DE_8
-  # FLEXI_COGNITIVA =~ FC_6 + FC_7
+  #FLEXI_COGNITIVA =~ FC_6 + FC_7
   AUTO_CONTROL =~ AC_3 + AC_6 + AC_7
   CONTR_EMOC =~ Cem_3 + Cem_4
   TOL_INCERT =~ TI_3 + TI_5
@@ -231,11 +231,14 @@ inspect(origFit, 'r2')
 # DE_3  DE_8  AC_3  AC_6  AC_7 Cem_3 Cem_4  TI_3  TI_5 
 # 0.205 0.769 0.177 0.793 0.564 0.605 0.472 0.871 0.052 
 
-
 # -- step 5: predictive validity --
 
 # -- step 6: effect size --
 # https://stats.stackexchange.com/questions/223729/estimating-effect-size-for-mean-difference-cohens-d-in-a-structural-equation
+# and https://groups.google.com/forum/#!topic/lavaan/8xPLljwz4m4
+summary(origFit, standardized=TRUE)
+
+
 
 # -- step 7: path coefficients --
 
