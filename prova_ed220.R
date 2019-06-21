@@ -163,6 +163,68 @@ reliability(fit)
 #avevar     0.5339257    0.5108456  0.5413090  0.4812402 0.5127562 <<<
 
 # -- step 3: discrimant validity --
+# following these steps: https://www.researchgate.net/post/Chi-square_Discriminant_Validity_Test_with_Lavaan_R
+origModel <- '  
+  d1 =~ DE_3 + DE_8
+  d2 =~ AC_3 + AC_6 + AC_7
+  d3 =~ Cem_3 + Cem_4
+  d4 =~ TI_3 + TI_5
+'
+origFit <- sem(origModel, data=Prova19_268)
+
+corModel <- '
+  d12 =~ DE_3 + DE_8 + AC_3 + AC_6 + AC_7
+  d3 =~ Cem_3 + Cem_4
+  d4 =~ TI_3 + TI_5
+'
+corFit <- sem(corModel, data=Prova19_268)
+anova(corFit, origFit)
+# chidist: 56.875; p<0.001
+
+corModel <- '
+  d13 =~ DE_3 + DE_8 + Cem_3 + Cem_4
+  d2 =~ AC_3 + AC_6 + AC_7
+  d4 =~ TI_3 + TI_5
+'
+corFit <- sem(corModel, data=Prova19_268)
+anova(corFit, origFit)
+# chidist: 141.829, p<0.001
+
+corModel <- '
+  d14 =~ DE_3 + DE_8 + TI_3 + TI_5
+  d2 =~ AC_3 + AC_6 + AC_7
+  d3 =~ Cem_3 + Cem_4
+'
+corFit <- sem(corModel, data=Prova19_268)
+anova(corFit, origFit)
+# chidist: 63.197, p<0.001
+
+corModel <- '
+  d23 =~ AC_3 + AC_6 + AC_7 + Cem_3 + Cem_4
+  d1 =~ DE_3 + DE_8
+  d4 =~ TI_3 + TI_5
+'
+corFit <- sem(corModel, data=Prova19_268)
+anova(corFit, origFit)
+# chidist 138.702, p<0.001
+
+corModel <- '
+  d24 =~ AC_3 + AC_6 + AC_7 + TI_3 + TI_5
+  d1 =~ DE_3 + DE_8
+  d3 =~ Cem_3 + Cem_4
+'
+corFit <- sem(corModel, data=Prova19_268)
+anova(corFit, origFit)
+# chidist 61.759, p<0.001
+
+corModel <- '
+  d34 =~ Cem_3 + Cem_4 + TI_3 + TI_5
+  d1 =~ DE_3 + DE_8
+  d2 =~ AC_3 + AC_6 + AC_7
+'
+corFit <- sem(corModel, data=Prova19_268)
+anova(corFit, origFit)
+# chidist  61.758 , p<0.001
 
 # -- step 4: pearson's r-squared --
 
