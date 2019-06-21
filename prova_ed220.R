@@ -151,10 +151,16 @@ reliability(fit)
 # conservative and therefore appropriate measure of composite reliability. omega 1 and 2 have
 # some simplifying assumptions which i don't understand, so i'll leave them out for now.
 reliability(fit)
-# omega3     0.5836462       0.7058524    0.7961523  0.7136993  0.6249287 0.7583164
+
+#           DE           AC         CE         TI        total
+#omega      0.6650048    0.7432014  0.7009346  0.5721891 0.7320654
+#omega2     0.6650048    0.7432014  0.7009346  0.5721891 0.7320654
+#omega3     0.6650047    0.7465899  0.7009345  0.5721892 0.7266407 <<<
 
 
 # -- step 2: ave --
+#           DE           AC         CE         TI        total
+#avevar     0.5339257    0.5108456  0.5413090  0.4812402 0.5127562 <<<
 
 # -- step 3: discrimant validity --
 
